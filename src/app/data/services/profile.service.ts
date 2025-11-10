@@ -10,6 +10,6 @@ export class ProfileService {
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
 
   getTestAccounts() {
-    this.http.get(`${this.baseApiUrl}/account/test_accounts`)
+    return this.http.get(`${this.baseApiUrl}account/test_accounts`)
   }
 }
