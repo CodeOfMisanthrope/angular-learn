@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../auth/auth.service';
-import {from, map, skip, take} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +13,7 @@ import {from, map, skip, take} from 'rxjs';
 })
 export class LoginPage {
   authService = inject(AuthService);
+  router = inject(Router);
 
   form = new FormGroup({
     username: new FormControl("", {
@@ -25,25 +26,13 @@ export class LoginPage {
     }),
   });
 
-  constructor() {
-    from([1,2,3,4,5,6,7,8,9])
-      .pipe(
-        map(val => {
-          return val * 2;
-        }),
-        skip(2),
-        take(5),
-      )
-      .subscribe(val => {
-        console.log(val);
-      })
-  }
-
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
       this.authService.login(this.form.value)
-        .subscribe()
+        .subscribe((res) => {
+          this.router.navigate(['']);
+        });
     }
   }
 }
