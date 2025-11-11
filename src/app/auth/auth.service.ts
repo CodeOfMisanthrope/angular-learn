@@ -9,10 +9,18 @@ export class AuthService {
 
   baseApiUrl = 'https://icherniakov.ru/yt-course/auth/';
 
-  login(payload: Partial<{username: string | null, password: string | null}>) {
+  login(payload: Partial<{username: string, password: string}>) {
+    if (!payload.username || !payload.password) {
+      throw new Error('Username and password are required');
+    }
+
+    const fd = new FormData();
+    fd.append('username', payload.username);
+    fd.append('password', payload.password);
+
     return this.http.post(
       `${this.baseApiUrl}token`,
-      payload
+      fd
     );
   }
 }
