@@ -1,6 +1,9 @@
 :host {
   display: block;
   padding: 20px 12px;
+  background-color: var(--dark-color);
+  min-height: 100vh;
+  margin-right: 24px;
 }
 
 .main-menu-list {
